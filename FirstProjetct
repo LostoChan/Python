@@ -1,0 +1,106 @@
+# Python
+# BIBLIOTECA DE JOGOS
+
+from google.colab import output
+import time
+import random
+
+def cont():
+    r = input("Deseja continuar jogando?(Y/N)").upper()
+    match r:
+        case 'Y':
+            print("Vamos lá!")
+        case 'N':
+            print("Até mais!")
+        case _:
+                print("Opção inválida...")
+
+print("🎮\033[1;34mBem vindo à biblioteca de jogos!\033[0m🎮")
+time.sleep(2)
+output.clear()
+
+name = input("Digite o seu nome:\n")
+game = input("""Escolha um dos jogos abaixo:\n
+[1] Adivinhe o número
+[2] Jokenpo
+""")
+
+match game:
+    case '1':
+        life = 5
+        print("Começando Adivinhe o número...")
+        time.sleep(3)
+        output.clear()
+        while True:
+            print(f"Você tem {life} tentativas!")
+            pc     = random.randint(1,10)
+            player = int(input("Digite um número de 1 a 10: "))
+            if player > 10 or player < 0:
+                print("Número inválido...")
+                continue
+            else:
+                if player == pc:
+                    print("\033[32mParabéns, você acertou o número!\033[0m🎉")
+                    time.sleep(2)
+                    output.clear()
+                    break
+                else:
+                    life -=1
+                    if life == 0:
+                        print("Suas tentativas acabaram...")
+                        break
+                    else:
+                        print(f"\033[31mTente novamente, você ainda tem {life} chances!\033[0m")
+                        time.sleep(2)
+                        output.clear()
+    case '2':
+        print("Começando Jokenpo...")
+        time.sleep(3)
+        output.clear()
+        while True:
+            pc     = random.choice(['pedra', 'papel', 'tesoura'])
+            print(pc)
+            player = input("Escolha pedra papel ou tesoura: ").lower()
+            match player:
+                case _ if player == 'pedra' and pc == 'tesoura':
+                    print(f"{name} venceu!")
+                    cont()
+                    match r:
+                        case 'Y':
+                            continue
+                        case 'N':
+                            break
+                case _ if player == 'tesoura' and pc == 'papel':
+                    print(f"{name} venceu!")
+                    cont()
+                    match r:
+                        case 'Y':
+                            continue
+                        case 'N':
+                            break
+                case _ if player == 'papel' and pc == 'pedra':
+                    print(f"{name} venceu!")
+                    cont()
+                    match r:
+                        case 'Y':
+                            continue
+                        case 'N':
+                            break
+                case _ if player == pc:
+                    print("Empate!")
+                    cont()
+                    match r:
+                        case 'Y':
+                            continue
+                        case 'N':
+                            break
+                    print(f"{name} perdeu!")
+                    r = input("Deseja continuar jogando?(Y/N)").upper()
+                    cont()
+                    match r:
+                        case 'Y':
+                            continue
+                        case 'N':
+                            break
+    case _:
+        print("Opção inválida...")
